@@ -1,0 +1,5 @@
+1. make a dataframe with unknown dataset (from user)
+    a. make dataframe with our dataset
+    b. make reuseable
+2. graph option (user chooses the columns)
+3. make it into a GUI (tkinter, pyqt)
