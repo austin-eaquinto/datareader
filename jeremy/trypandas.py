@@ -57,7 +57,7 @@ def filter_tracks(condition, column, value):
     elif condition == "contains":
         return df[df[column].fillna("").str.contains(value, case=False)]
 
-def specific_columns(columns):
+def choose_columns(columns):
     return df[columns]
 
 # print(filter_tracks("contains", "artists", "Estas Tonne"))
