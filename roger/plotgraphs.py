@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("data/dataset.csv")
+df = pd.read_csv("../data/dataset.csv")
 
 # # After loading the dataframe:
 # print("First 5 rows:")
@@ -15,14 +15,6 @@ df = pd.read_csv("data/dataset.csv")
 
 # print("\nColumn names:")
 # print(df.columns.tolist())  # List all columns
-
-# track_dance = df[df.track_name > df.danceability]
-# print("\ntrack_dance")
-# print(track_dance)
-
-# columns_to_keep = ["track_name", "artists"]
-# new_df = df[columns_to_keep]
-# print(new_df)
 
 # Histogram of a feature
 # plt.figure(figsize=(10,6))
@@ -51,3 +43,31 @@ df = pd.read_csv("data/dataset.csv")
 # # plt.ylim(0, 1500)  # Example: Force 0-1500 range
 # plt.show()
 
+# Bad Bunny, Bruno Mars, and Paramore have multiple genres
+target_artist = "Drake"
+
+# artist_df = df[df["artists"] == target_artist]
+
+# Handle potential multi-artist entries
+df_exploded = df.assign(artists=df["artists"].str.split(';')).explode("artists")
+
+# Filter for the artist
+artist_df = df_exploded[df_exploded['artists'] == target_artist]
+print(artist_df["track_name"].unique())
+
+
+# Get results
+if not artist_df.empty:
+    unique_genres = artist_df['track_genre'].unique()
+    genre_counts = artist_df['track_genre'].value_counts()
+    
+    print(f"Artist: {target_artist}")
+    print(f"Unique Genres: {len(unique_genres)}")
+    print(genre_counts)
+else:
+    print(f"Artist '{target_artist}' not found in dataset.")
+
+
+plt.title(target_artist)
+
+# make a plot for x axis genres and y axis count for an artists bar chart
