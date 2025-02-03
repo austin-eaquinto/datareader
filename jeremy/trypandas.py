@@ -64,7 +64,7 @@ def choose_columns(columns):
 
 def list_columns():
     i = 0
-    for column in columns: # first 2 are not useful. change for other datasets - probably just print all columns.
+    for column in columns:
         print(i + 1, column)
         i += 1
     return i
