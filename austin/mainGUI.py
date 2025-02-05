@@ -15,6 +15,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("File Reader") # title of window
         self.setGeometry(200, 200, 600, 400) # size of window
 
+        self.initial_size = self.size()
+
         self.setMinimumSize(600, 400) # minimum size the window can be, even user adjusted
         
         centralWidget = QWidget(self) # QWidget = base class for UI objects. 'self' makes centralWidget a child of main window (or self)
@@ -32,11 +34,11 @@ class MainWindow(QMainWindow):
         # QVBoxLayout arranges its child widgets in a vertical column, one below the other
         # Search textbox
         parametersLabel = QLabel("Look for: ", self) # Creates label "Look for: ". self says this is a child of MainWindow
-        parameters = QLineEdit(self) # Creates the user input box
-        parameters.setPlaceholderText("Enter search parameter") # Puts placeholder text into the input box
-        parameters.setToolTip("Type the column name you want to search for") # Creates tool tip text for this input box when mouse hovers over it
+        self.parameters = QLineEdit(self) # Creates the user input box
+        self.parameters.setPlaceholderText("Enter search parameter") # Puts placeholder text into the input box
+        self.parameters.setToolTip("Type the column name you want to search for") # Creates tool tip text for this input box when mouse hovers over it
         groupBoxLayout.addWidget(parametersLabel) # Adds parametersLabel to the layout to its vertical rules
-        groupBoxLayout.addWidget(parameters) # Adds the input box to the layout
+        groupBoxLayout.addWidget(self.parameters) # Adds the input box to the layout
         # File textbox --Follow same rules for lines 32-37
         pickFileLabel = QLabel("From file: ", self)
         self.pickFile = QLineEdit(self)
@@ -101,7 +103,7 @@ class MainWindow(QMainWindow):
         
         # Connects button clicking to specific funtions
         self.displayButton.clicked.connect(self.toggle_categories) # When clicked, handles display of categories
-        newButton.clicked.connect(lambda: self.label.setText("Okie Dokie")) # Displays text message when clicked
+        newButton.clicked.connect(lambda: self.label.setText(self.new_search())) # Displays text message when clicked
         searchButton.clicked.connect(lambda: self.label.setText(self.search_for_file())) # Displays text when clicked
         
         self.show() # Displays MainWindow for appearance and use
@@ -115,7 +117,7 @@ class MainWindow(QMainWindow):
             self.createGraphButton.setVisible(True)
         self.adjustSize() # adjusts the size of the widget to properly display all of its contents
 
-    def search_for_file(self):
+    def search_for_file(self): # finds the specific file from the user's computer
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
         file_name, _ = QFileDialog.getOpenFileName(self, "Select Data File", "", "All Files (*);;CSV Files (*.csv);;Text Files (*.txt)", options=options)
@@ -123,6 +125,14 @@ class MainWindow(QMainWindow):
             self.pickFile.setText(file_name)
             return f"Selected File: {file_name}"
         return "No file selected"
+    
+    def new_search(self):
+        self.parameters.clear()
+        self.pickFile.clear()
+        self.label.setText("What are you looking for?")
+        self.categoryWidget.setVisible(False)
+        self.createGraphButton.setVisible(False)
+        self.resize(self.initial_size)
 
 def create_app():
     app = QApplication(sys.argv) # Manages app resources
