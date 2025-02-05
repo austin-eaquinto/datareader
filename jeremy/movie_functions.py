@@ -8,6 +8,16 @@ df = pd.read_csv(dataset)
 #     print(c)
 
 
+def filter_movies(condition, column, value):
+    if condition == "equals":
+        return df[df[column] == value]
+    elif condition == "greater":
+        return df[df[column] > value]
+    elif condition == "less":
+        return df[df[column] < value]
+    elif condition == "contains":
+        return df[df[column].fillna("").str.contains(value, case=False)]
+
 def select_column():
     count = list_columns()
     print(f"choose column (1 - {count})")
@@ -24,7 +34,6 @@ def select_columns():
         chosen_list.append(int(selection) - 1)
         selection = input("> ")
     return chosen_list
-
 
 
 
