@@ -1,4 +1,4 @@
 /data
 /RogerVenv
-.env
+/roger/.env
 /venv
