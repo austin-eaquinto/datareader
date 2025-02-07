@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 import pandas as pd
 
+
 load_dotenv()
 # movies = pd.read_csv("../data/movies_cleaned_v2.csv")
 
@@ -25,6 +26,9 @@ load_dotenv()
 
 # save_df_txtfile()
 
+dataset = "../id_name.csv"
+df = pd.read_csv(dataset)
+
 raw_documents = TextLoader("tagged_overview.txt", encoding="utf-8").load()
 text_splitter = CharacterTextSplitter(chunk_size=0, chunk_overlap=0, separator="\n")
 documents = text_splitter.split_documents(raw_documents)
@@ -37,7 +41,21 @@ db_movies = Chroma.from_documents(
 )
 
 
-query = "monster movies"
+query = "movies like the stormlight archive book series"
 
 docs = db_movies.similarity_search(query, k=10)
-print(docs)
+
+# Display the results
+for doc in docs:
+    print(f"Document: {doc.page_content}")
+
+def process_document(doc):
+    doc_string = str(doc.page_content)
+    content = doc_string.replace("Document: ", "")
+    movie_id, description = content.split(" ", 1)
+    return int(movie_id), description
+
+for doc in docs:
+    id, desc = process_document(doc)
+    name = df[df['id'] == id]['title'].values[0]
+    print(f"Movie ID: {id}, Name: {name}, Description: {desc}")

@@ -64,7 +64,8 @@ def select_columns_limit(amount, df):
 
 def custom_df(df, columns=2):
     chosen_columns = select_columns_limit(columns, df)
-    new_df = df.iloc[:10, chosen_columns]
-    return new_df.to_string(index=False)
+    new_df = df.iloc[:, chosen_columns]
+    return new_df
+# print(custom_df(df))
 
-print(custom_df(df))
+custom_df(df).to_csv("id_name", index=False)
