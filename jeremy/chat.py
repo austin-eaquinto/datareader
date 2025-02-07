@@ -6,7 +6,7 @@ load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAIL_API_KAY"))
 
 messages = [
-    {"role": "system", "content": "You are are helping find movies based on the user's requests."}
+    {"role": "system", "content": "You are helping find movies based on the user's requests."}
 ]
 
 while True:
