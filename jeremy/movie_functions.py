@@ -68,4 +68,4 @@ def custom_df(df, columns=2):
     return new_df
 # print(custom_df(df))
 
-custom_df(df).to_csv("id_name", index=False)
+# custom_df(df).to_csv("id_name", index=False)
