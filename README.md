@@ -1,9 +1,19 @@
-# datareader
-a program that reads any type of file and iterprets the desired data
+# DataReader
 
-[GitHub Repo Link](https://github.com/austin-eaquinto/datareader)
+[DataReader](https://github.com/austin-eaquinto/datareader)
+is a software program designed for data science purposes, simplifying and automating the process for a client to analyze datasets that they insert. Utilizing this tool will accelerate client operations by eliminating time manually preparing data. This will allow the client to focus more on identifying solutions for their needs. This application is to clean a submitted dataset, parse for valid column values, generate relevant plotgraphs, and utilize AI for
+data analytical queries. 
 
-[Matplotlib and PyQt Connection?](https://matplotlib.org/stable/users/explain/figure/backends.html)
+## Technologies Utilized
+
+- Python
+- Pandas
+- Matplotlib
+- PyQt
+- Langchain Chroma
+- OpenAI API
+
+
 
 ## Virtual Environment Set Up
 
@@ -80,3 +90,7 @@ git add requirements.txt
 git commit -m "Add requirements.txt"
 git push
 ````
+
+## Resources & Reference Material
+
+[Matplotlib and PyQt Connection?](https://matplotlib.org/stable/users/explain/figure/backends.html)
