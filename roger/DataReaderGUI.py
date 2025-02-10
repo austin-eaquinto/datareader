@@ -292,7 +292,8 @@ class ColumnHeader(QWidget):
         self.clear_checkboxes()
 
         try:
-            with open("../data/movies_cleaned_v2." + filename, 'r') as file:
+            with open(filename, 'r') as file:
+            # with open("../data/movies_cleaned_v2." + filename, 'r') as file:
                 reader = csv.reader(file)
                 headers = next(reader) # first line only
                 
@@ -526,7 +527,8 @@ class MainWindow(QMainWindow):
     def handle_file_submission(self, file_path):
         """Slot for when filename is submitted"""
 
-        self.current_data_path = "../data/movies_cleaned_v2." + file_path
+        self.current_data_path = file_path
+        # self.current_data_path = "../data/movies_cleaned_v2." + file_path
         print("Loaded file path:", self.current_data_path)
         
         # load CSV to display headers on left side of screen
