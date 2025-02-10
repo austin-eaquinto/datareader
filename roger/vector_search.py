@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 import pandas as pd
 
 load_dotenv()
-# movies = pd.read_csv("../data/movies_cleaned_v2.csv")
+movies = pd.read_csv("../data/movies_cleaned_v2.csv")
 
 # print(movies.info())
 # print(movies["tagged_overview"])
@@ -29,7 +29,7 @@ raw_documents = TextLoader("tagged_overview.txt", encoding="utf-8").load()
 text_splitter = CharacterTextSplitter(chunk_size=0, chunk_overlap=0, separator="\n")
 documents = text_splitter.split_documents(raw_documents)
 
-print(documents[0])
+# print(documents[0])
 
 db_movies = Chroma.from_documents(
     documents, 
@@ -41,3 +41,7 @@ query = "monster movies"
 
 docs = db_movies.similarity_search(query, k=10)
 print(docs)
+
+movies[movies["uniqueID"] == int(docs[0].page_content.split()[0].strip())]
+
+print(movies["uniqueID"])
