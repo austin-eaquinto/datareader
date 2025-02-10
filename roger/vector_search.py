@@ -25,6 +25,9 @@ movies = pd.read_csv("../data/movies_cleaned_v2.csv")
 
 # save_df_txtfile()
 
+dataset = "../id_name.csv"
+df = pd.read_csv(dataset)
+
 raw_documents = TextLoader("tagged_overview.txt", encoding="utf-8").load()
 text_splitter = CharacterTextSplitter(chunk_size=0, chunk_overlap=0, separator="\n")
 documents = text_splitter.split_documents(raw_documents)
@@ -37,11 +40,29 @@ db_movies = Chroma.from_documents(
 )
 
 
-query = "monster movies"
+query = "movies like the stormlight archive book series"
 
 docs = db_movies.similarity_search(query, k=10)
+<<<<<<< HEAD
 print(docs)
 
 movies[movies["uniqueID"] == int(docs[0].page_content.split()[0].strip())]
 
 print(movies["uniqueID"])
+=======
+
+# Display the results
+for doc in docs:
+    print(f"Document: {doc.page_content}")
+
+def process_document(doc):
+    doc_string = str(doc.page_content)
+    content = doc_string.replace("Document: ", "")
+    movie_id, description = content.split(" ", 1)
+    return int(movie_id), description
+
+for doc in docs:
+    id, desc = process_document(doc)
+    name = df[df['id'] == id]['title'].values[0]
+    print(f"Movie ID: {id}, Name: {name}, Description: {desc}")
+>>>>>>> b55fc6c410243dc2675e600567c5d6a4e9109862
