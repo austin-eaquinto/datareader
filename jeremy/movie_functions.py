@@ -60,19 +60,14 @@ def select_columns_limit(df, column_limit):
     
     return chosen_list
 
-
-
-<<<<<<< Updated upstream
-def custom_df(df, columns=2):
-    chosen_columns = select_columns_limit(columns, df)
-    new_df = df.iloc[:, chosen_columns]
-    return new_df
-# print(custom_df(df))
-=======
 def custom_df(df, column_limit=2):
     chosen_columns = select_columns_limit(df, column_limit)
     new_df = df.iloc[:10, chosen_columns]
     return new_df.to_string(index=False)
->>>>>>> Stashed changes
+
+def string_custom_df(df, column_limit=2):
+    chosen_columns = select_columns_limit(df, column_limit)
+    new_df = df.iloc[:10, chosen_columns]
+    return new_df.to_string(index=False)
 
 # custom_df(df).to_csv("id_name", index=False)
